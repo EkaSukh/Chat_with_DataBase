@@ -9,6 +9,7 @@ int main()
 	ServerTCP server;
 	DataBase data;
 	data.connectToDataBase();
+	data.createDataBase();
 	DBUsers dbUsers(&data, &server);
 	DBMessAll dbMsgAll(&data, &server);
 	DBMessPrs dbMsgPrs(&data, &server);
