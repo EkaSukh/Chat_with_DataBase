@@ -9,6 +9,9 @@ ClientTCP::ClientTCP()
     serveraddress.sin_family = AF_INET;
 
     buff_shift = 0;
+    sockd = 0;
+    connection = 0;
+    bzero(buff, BUF_SIZE);
 }
 
 //constructor for difined IP
@@ -20,7 +23,10 @@ ClientTCP::ClientTCP(std::string &ip)
     serveraddress.sin_port = htons(PORT);
     serveraddress.sin_family = AF_INET;
 
-    buff_shift = 0;    
+    buff_shift = 0;  
+    sockd = 0;
+    connection = 0;
+    bzero(buff, BUF_SIZE);  
 }
 
 //connection to the server
@@ -47,7 +53,8 @@ void ClientTCP::clientConnect()
 void ClientTCP::readInput()
 {
     //put server to listen and accept a message from a client
-    int bytes_read = read(sockd, buff, BUF_SIZE);
+    //int bytes_read =;
+    read(sockd, buff, BUF_SIZE);
     //std::cout << "received " << bytes_read << " bytes.\n";
 }
 
@@ -89,23 +96,9 @@ void ClientTCP::clearBuffer()
 //send information to the server
 void ClientTCP::writeOutput()
 {
-    int sent_bytes = send(sockd, buff, BUF_SIZE, 0);
+    //int sent_bytes = 
+    send(sockd, buff, BUF_SIZE, 0);
     //std::cout << "Sent " << sent_bytes << " bytes.\n";
-}
-
-//transform format
-int ClientTCP::transformInNumber(std::string& str_num)
-{
-	int mess_num_letters = str_num.size();
-	int n_mess_num = 0;
-	int k = 0;
-	while (k < mess_num_letters)
-	{
-		n_mess_num += (str_num[k]-'0')*pow(10, --mess_num_letters);
-	}
-	std::cout <<"constructed nubmer of a message by int: \"" << n_mess_num << "\"\n";
-
-	return n_mess_num;
 }
 
 //helping debug function

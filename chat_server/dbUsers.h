@@ -5,8 +5,8 @@
 class DBUsers
 {
     public:
-    DBUsers(DataBase* db, ServerTCP* ptr_server): dataBase(db), server(ptr_server) {std::cout << "Create a DBUser object.\n";}
-    ~DBUsers() {}  
+    DBUsers(DataBase* db, ServerTCP* ptr_server): dataBase(db), server(ptr_server) {std::cout << "Create a DBUser object.\n"; res = nullptr;}
+    ~DBUsers() {res = nullptr;}  
 
     //this function only form SQL querry  
     void insertUserInTable(const std::string& login, const std::string& name, const std::string& passwd);

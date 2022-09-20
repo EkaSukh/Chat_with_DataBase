@@ -20,7 +20,7 @@ void Chat::addUser(Chat& cht, ClientTCP &client, const std::string& login, const
 	start = client.writeBuffer(start, name);
 	
 	//copy name in buffer
-	start = client.writeBuffer(start, pass);
+	client.writeBuffer(start, pass);
 
 	//client.showBuff();
 	
@@ -44,7 +44,7 @@ void Chat::showUsers(ClientTCP &client)
 {
 	client.clearBuffer();
 	std::string descriptor = "13";
-	int start = client.writeBuffer(0, descriptor);
+	client.writeBuffer(0, descriptor);
 	
 	client.clientConnect();
 	client.writeOutput(); 
@@ -71,7 +71,7 @@ bool Chat::findUser(const std::string& login, ClientTCP &client)
 	std::string descriptor = "10";
 	int start = client.writeBuffer(0, descriptor);
 	     
-	start = client.writeBuffer(start, login);
+	client.writeBuffer(start, login);
     
     client.clientConnect();
     client.writeOutput();
@@ -105,7 +105,7 @@ bool Chat::findUserByName(const std::string& name, ClientTCP &client)
 	int start = client.writeBuffer(0, descriptor);
 	       
 
-    start = client.writeBuffer(start, name);
+    client.writeBuffer(start, name);
 
 	client.clientConnect();
     client.writeOutput();
@@ -139,21 +139,6 @@ User* Chat::getUser(const std::string& login)
 		return nullptr;
 }
 
-//return pointer on the user in the inner container via name
-User* Chat::getUserByName(const std::string& name)
-{
-
-	std::map <std::string, User>::iterator usr;
-	for (usr = Users.begin();usr != Users.end();++usr)
-	{
-		std::string tmp = usr->second.getName();
-		if (0 == tmp.compare(name))
-			return &(usr->second);
-	}	
-	return nullptr;
-
-}
-
 //return list of availible messages from collection "for all"
 void Chat::chatGetAllCollection(Chat& cht, User* usr, ClientTCP &client)
 {   
@@ -164,7 +149,7 @@ void Chat::chatGetAllCollection(Chat& cht, User* usr, ClientTCP &client)
     std::string descriptor = "21";
 	int start = client.writeBuffer(0, descriptor);
 
-	start = client.writeBuffer(start, usr->getLogin());
+	client.writeBuffer(start, usr->getLogin());
 	
 	client.clientConnect();    
     client.writeOutput();
@@ -193,7 +178,7 @@ void Chat::chatGetPersonalCollection(Chat& cht, User* usr, ClientTCP &client)
     std::string descriptor = "22";
 	int start = client.writeBuffer(0, descriptor);
 
-	start = client.writeBuffer(start, usr->getLogin());
+	client.writeBuffer(start, usr->getLogin());
 	
 	client.clientConnect();    
     client.writeOutput();

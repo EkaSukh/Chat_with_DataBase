@@ -108,7 +108,7 @@ void Interface::logIn(Chat& cht, ClientTCP &client)
 	start = client.writeBuffer(start, lg_inp);	
 
 	//password
-	start = client.writeBuffer(start, pass_inp);
+	client.writeBuffer(start, pass_inp);
 	
 	//connect and send data to the server
 	client.clientConnect();  
@@ -189,8 +189,8 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 	std::cout << "5 Personal: change name or password\n";
 	std::cout << "6 Go to main menu\n\n";	
 
-	int input;
-	while (!(std::cin >> input))//проверка ввода
+	int input_stCh;
+	while (!(std::cin >> input_stCh))//проверка ввода
 	{
 		std::cin.clear();
 		while (std::cin.get() != '\n')
@@ -198,15 +198,13 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 		std::cout << "Input shood be an integer from 1 to 6. Please, try again.\n";
 	}
 
-	switch (input)
+	switch (input_stCh)
 	{
 		//write a message to "for all" collection
 	case 1: {
 		std::cout << "Enter the message up to 100 symbols (enter # to finish the message):\n";
 		std::string inp_text;
-		readTheInput(inp_text);
-
-		std::string from = (active_user->getName());
+		readTheInput(inp_text);		
 		
 		//write descrptor of an action for the server
 		client.clearBuffer();
@@ -218,7 +216,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
    		start = client.writeBuffer(start, name);
 
 		//write text
-		start = client.writeBuffer(start, inp_text, '#');		
+		client.writeBuffer(start, inp_text, '#');		
 
 		//client.showBuff(30);
 		
@@ -266,7 +264,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 		start = client.writeBuffer(start, inp_text, '#');		
 
 		//to
-		start = client.writeBuffer(start, to);
+		client.writeBuffer(start, to);
 				
 		//connect and send data
 		client.clientConnect();		
@@ -297,7 +295,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 		start = client.writeBuffer(start, active_user->getLogin());
 		
 		std::string num = std::to_string(sn);
-		start = client.writeBuffer(start, num);
+		client.writeBuffer(start, num);
 
 		//client.showBuff(15);		
 		
@@ -341,7 +339,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 		start = client.writeBuffer(start, active_user->getLogin());	
 
 		std::string num = std::to_string(sn);
-		start = client.writeBuffer(start, num);
+		client.writeBuffer(start, num);
 				
 		//connect and send data
 		client.clientConnect();
@@ -374,8 +372,8 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 			std::cout << "1 Change user's name.\n";
 			std::cout << "2 Change user's password.\n";
 			std::cout << "3 Go upward menu.\n";
-			int input;
-			while (!(std::cin >> input))//check input
+			int input_p;
+			while (!(std::cin >> input_p))//check input
 			{
 				std::cin.clear();
 				while (std::cin.get() != '\n')
@@ -383,7 +381,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 				std::cout << "Input shood be an integer 1, 2  or 3. Please, try again.\n";
 			}			
 
-			switch (input)
+			switch (input_p)
 			{
 			case 1://сhange user's name
 			{				
@@ -509,7 +507,7 @@ bool Interface::startChat(Chat& cht, ClientTCP &client)
 		
 		client.clearBuffer();
 		std::string descriptor = "16";
-		int start = client.writeBuffer(0, descriptor);
+		client.writeBuffer(0, descriptor);
 
 		//connect and send data
 		client.clientConnect();

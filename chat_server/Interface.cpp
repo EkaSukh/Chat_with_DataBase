@@ -114,12 +114,12 @@ bool Interface::Enable()
 				if(find)
 					{
 						std::string result = "1";
-						int start = server->writeBuffer(0, result);
+						server->writeBuffer(0, result);
 					}
 				else
 					{
 						std::string result = "0";
-						int start = server->writeBuffer(0, result);
+						server->writeBuffer(0, result);
 					}
 
 				server->writeOutput();
@@ -165,8 +165,8 @@ bool Interface::Enable()
 				
 				if(result == 1)
 					{
-						std::string result = "1";
-						int start = server->writeBuffer(0, result);
+						std::string result_find = "1";
+						int start = server->writeBuffer(0, result_find);
 
 						std::string name = baseUsers->packUserNameInBuffer(login,start);
 						std::cout << "Name is: " << name << "\n";
@@ -176,8 +176,8 @@ bool Interface::Enable()
 					}
 				else
 					{
-						std::string result = "0";
-						int start = server->writeBuffer(0, result);
+						std::string result_find = "0";
+						server->writeBuffer(0, result_find);
 					}							
 
 				server->writeOutput();
@@ -188,7 +188,7 @@ bool Interface::Enable()
 			{
 				//reconstruct "for all" message collection
 				std::string login;
-				int n = server->readBuffer(0, login);
+				server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
 
 				server->clearBuffer();
@@ -204,7 +204,7 @@ bool Interface::Enable()
 			case 22:
 			{//reconstruction pesonal message collection
 				std::string login;
-				int n = server->readBuffer(0, login);
+				server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
 
 				server->clearBuffer();
@@ -225,12 +225,11 @@ bool Interface::Enable()
 				int start = server->readBuffer(0, name);
 				std::cout <<"Name reconstruction: \"" << name << "\"\n";
 
-				std::cout << "Have a message to all other users\n";
-				std::string to = "all";
+				std::cout << "Have a message to all other users\n";				
 
 				//read the message text
 				std::string inp_text;				
-				start = server->readBuffer(start, inp_text, '#');
+				server->readBuffer(start, inp_text, '#');
 				std::cout <<"text reconstruction: \"" << inp_text << "\"\n";
 								
 				//put message in the database
@@ -331,8 +330,8 @@ bool Interface::Enable()
 				{	
 					//geting a right position to read from a buffer
 					int start = 4 + login.size();
-					int input = server->atBuff(start) - '0';
-					std::cout << "Have an input " << input << "\n";
+					int input_p = server->atBuff(start) - '0';
+					std::cout << "Have an input " << input_p << "\n";
 
 					switch (input)
 					{

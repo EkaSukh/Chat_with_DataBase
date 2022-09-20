@@ -26,7 +26,11 @@ ServerTCP::ServerTCP()
 
     //buff_shift is equal for the action descriptor lenght and plus '\0' symbol
     buff_shift = 3;
-    
+
+    //null variable that will be set in spesial functions
+    connection = 0;
+    connection_status = 0;
+    bzero(buff, BUF_SIZE);
 }
 
 void ServerTCP::serverConnect()
