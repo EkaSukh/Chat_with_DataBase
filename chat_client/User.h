@@ -24,10 +24,7 @@ public:
 	std::string getLogin() const;
 
 	//setters
-	void setName(const std::string& name);
-	void setPass(const std::string& pass);
-
-	bool checkPass(const std::string& psw);	
+	void setName(const std::string& name);	
 	
 private:
 	const std::string _login; //fixed to define user in chat

@@ -23,7 +23,7 @@ public:
 	bool findUser(const std::string& login, ClientTCP &client);
 	bool findUserByName(const std::string& name, ClientTCP &client);
 	User* getUser(const std::string& login);
-	User* getUserByName(const std::string& name);
+	
 	
 	//reconstruct chat's state for a user
 	void chatGetAllCollection(Chat& cht, User* usr, ClientTCP &client);

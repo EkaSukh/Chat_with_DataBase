@@ -12,7 +12,7 @@ class ClientTCP
     public:
 
         ClientTCP();
-        ClientTCP(std::string &ip);
+        explicit ClientTCP(std::string &ip);
         ~ClientTCP() {}
         
         //client server comunication
@@ -27,8 +27,7 @@ class ClientTCP
         void clearBuffer();
         void writeOutput();
 
-        //helping fuctions
-        int transformInNumber(std::string& str_num);
+        //helping fuctions for debuging        
         void showBuff(const int n);
 
     private:
@@ -42,3 +41,6 @@ class ClientTCP
         socklen_t length;
         
 };
+
+
+
