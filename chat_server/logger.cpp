@@ -21,9 +21,9 @@ Logger::~Logger()
 //inner writing fuction to pass to std::thread t()
 void Logger::writeInFile(const std::string& str)
 {
-    shrMutex.lock_shared();
+    shrMutex.lock();
     fs << str;
-    shrMutex.unlock_shared();
+    shrMutex.unlock();
 }
 
 //inner reading fuction to pass to std::thread t()
