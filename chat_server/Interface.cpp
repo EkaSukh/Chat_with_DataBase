@@ -45,6 +45,13 @@ bool Interface::Enable()
         		
 				//check if a user exists
 				std::cout <<"login is \"" << login << "\"\n";
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"Find User\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				//bool find = chat.findUser(login);
 				bool find = baseUsers->findUserByLogin(login);
@@ -78,6 +85,13 @@ bool Interface::Enable()
 				std::string login;
 				int n = server->readBuffer(0, login);								
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"add a new User\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 				
 				//Read a user's name that is in the buffer
 				std::string name;
@@ -104,6 +118,13 @@ bool Interface::Enable()
 				std::string name;
 				server->readBuffer(0, name);				
 				std::cout <<"name is \"" << name << "\"\n";
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"find a User by name\" operation for \"" + name + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				//check if a user exists
 				
@@ -131,6 +152,14 @@ bool Interface::Enable()
 			{//return a users list
 				std::cout << "\nList current users...\n";
 
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"pack Users list in buffer\" operation.\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
+
 				std::string result = baseUsers->packUserListInBuffer(0);
 
 				std::cout << result << "\n";
@@ -152,6 +181,14 @@ bool Interface::Enable()
 				std::string login;
 				int n = server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"log in\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 				
 				//Read a user's pass that is in the buffer
 				std::string pass;
@@ -191,6 +228,14 @@ bool Interface::Enable()
 				server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
 
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"collection for all reconstruction\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
+
 				server->clearBuffer();
 				std::string list = 	baseMsgAll->packAllMsgCOllectionInBuffer(0);
 				std::cout << list << "\n";
@@ -206,6 +251,14 @@ bool Interface::Enable()
 				std::string login;
 				server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Doing \"personal collection reconstruction\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				server->clearBuffer();
 				std::string list = baseMsgPrs->packPrsMsgCollectionInBuffer(login, 0);
@@ -224,6 +277,14 @@ bool Interface::Enable()
 				std::string name;
 				int start = server->readBuffer(0, name);
 				std::cout <<"Name reconstruction: \"" << name << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Have a \"message for common collection\" operation from \"" + name + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				std::cout << "Have a message to all other users\n";				
 
@@ -244,7 +305,7 @@ bool Interface::Enable()
 				std::string name;
 				int start = server->readBuffer(0, name);
 				std::cout <<"Name reconstruction: \"" << name << "\"\n";
-
+				
 				std::cout << "Have a message to a particular users\n";			
 
 				//read a text of the message			
@@ -256,6 +317,14 @@ bool Interface::Enable()
 				std::string to;	
 				server->readBuffer(start, to);
 				std::cout <<"Recepient by reconstruction: \"" << to << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Have a \"message personal message\" from \"" + name + "\" to \"" + to + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				//put message in the database
 				baseMsgPrs->addMessage(name, to, inp_text);				
@@ -269,6 +338,14 @@ bool Interface::Enable()
 				std::string login;
 				int n = server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Read a \"message from common collection\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				std::cout << "Reading a massage from collection to all\n";
 				std::string mess_num;				
@@ -297,6 +374,14 @@ bool Interface::Enable()
 				std::string login;
 				int n = server->readBuffer(0, login);
 				std::cout <<"login reconstruction: \"" << login << "\"\n";
+
+				{
+					//put a line in log
+					std::string logString = server->currentTimeDate();
+					logString += "Read a \"message from personal collection\" operation for \"" + login + "\".\n";
+            		Logger log(server->logFile);
+            		log.writeLog(logString);
+				}
 
 				std::cout << "Reading a massage from a personal collection\n";
 				std::string mess_num;				
@@ -343,6 +428,14 @@ bool Interface::Enable()
 							server->readBuffer(start, new_name);
 							
 							baseUsers->changeName(login, new_name);
+
+							{
+								//put a line in log
+								std::string logString = server->currentTimeDate();
+								logString += "User\""+ login + "\"changed their name \n";
+            					Logger log(server->logFile);
+            					log.writeLog(logString);
+							}
 							
 							in_personal = false;
 							break;				
@@ -356,6 +449,14 @@ bool Interface::Enable()
 							server->readBuffer(start, new_pass);
 
 							baseUsers->changePass(login, new_pass);
+
+							{
+								//put a line in log
+								std::string logString = server->currentTimeDate();
+								logString += "User\""+ login + "\"changed their pass\n";
+            					Logger log(server->logFile);
+            					log.writeLog(logString);
+							}
 							
 							in_personal = false;	
 							break;	

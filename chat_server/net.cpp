@@ -31,6 +31,25 @@ ServerTCP::ServerTCP()
     connection = 0;
     connection_status = 0;
     bzero(buff, BUF_SIZE);
+
+    {
+       //put a line in log
+       std::string logString = currentTimeDate();
+       logString += " Server start.\n";
+       Logger log(logFile);
+       log.writeLog(logString);
+    }
+}
+
+ServerTCP::~ServerTCP()
+{
+    
+    //put a line in log
+    std::string logString = currentTimeDate();
+    logString += " Server is off.\n";
+    Logger log(logFile);
+    log.writeLog(logString);
+    
 }
 
 void ServerTCP::serverConnect()
@@ -44,7 +63,7 @@ void ServerTCP::serverConnect()
     }
     else
     {
-        std::cout << "Server is listening for a client connection...\n";
+        std::cout << "Server is listening for a client connection...\n";        
     }
 
 	length = sizeof(client);
@@ -129,4 +148,13 @@ void ServerTCP::showBuff(const int n)
     {
         std::cout << "symbol " << k << " is " << buff[k] << "\n";
     }
+}
+
+std::string ServerTCP::currentTimeDate()
+{
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&time), "%Y-%m-%d %X");
+    return ss.str();
 }
